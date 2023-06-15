@@ -16,9 +16,10 @@ import { QuerySelectorService } from '../service/query-selector.service';
 import { PaymentOptionsLoaderComponent } from '../components/common/payment-options-loader.component';
 import { PayLaterMessageComponent } from '../components/ps-checkout-pay-later-message.component';
 import { PayLaterBannerComponent } from '../components/ps-checkout-pay-later-banner.component';
+import { PaymentMethodLogosComponent } from '../components/common/payment-method-logos.component';
 
 function initService(app) {
-  return service => () => new service(app);
+  return (service) => () => new service(app);
 }
 
 /**
@@ -43,8 +44,8 @@ function initContainer(app) {
     serviceFactory(PaymentOptionsLoaderComponent)
   );
 
-  bottle.factory('$', container => {
-    return id => container.TranslationService.getTranslationString(id);
+  bottle.factory('$', (container) => {
+    return (id) => container.TranslationService.getTranslationString(id);
   });
 }
 
@@ -70,20 +71,22 @@ export class App {
       return this.renderCheckout();
     };
 
-    window.ps_checkout.renderExpressCheckout = props => {
+    window.ps_checkout.renderExpressCheckout = (props) => {
       return this.renderExpressCheckout(props);
     };
 
-    window.ps_checkout.renderPayLaterOfferMessage = props => {
+    window.ps_checkout.renderPayLaterOfferMessage = (props) => {
       return this.renderPayLaterOfferMessage(props);
     };
   }
 
   async initPayPalService() {
     if (!this.container.PayPalSDK) {
-      const token = this.psCheckoutConfig.hostedFieldsEnabled && this.prestashopService.isOrderPage()
-        ? await this.psCheckoutService.getPayPalToken()
-        : '';
+      const token =
+        this.psCheckoutConfig.hostedFieldsEnabled &&
+        this.prestashopService.isOrderPage()
+          ? await this.psCheckoutService.getPayPalToken()
+          : '';
 
       try {
         const sdk = await new PayPalSdkComponent(this, {
@@ -123,49 +126,93 @@ export class App {
     new PayLaterBannerComponent(this, props).render();
   }
 
+  async renderPaymentMethodLogos(props) {
+    await this.initPayPalService();
+    new PaymentMethodLogosComponent(this, props).render();
+  }
+
   async render() {
     this.exposeAPI();
 
     if (!this.psCheckoutConfig.autoRenderDisabled) {
       // Pay Later Message on Product Page
-      if (this.psCheckoutConfig.payLater.message.product && this.prestashopService.isProductPage()) {
+      if (
+        this.psCheckoutConfig.payLater.message.product &&
+        this.prestashopService.isProductPage()
+      ) {
         await this.renderPayLaterOfferMessage({
           placement: 'product'
         });
       }
 
       // Pay Later Message on Cart & Order Page
-      if (this.psCheckoutConfig.payLater.message.order && (this.prestashopService.isOrderPage() || this.prestashopService.isCartPage())) {
+      if (
+        this.psCheckoutConfig.payLater.message.order &&
+        (this.prestashopService.isOrderPage() ||
+          this.prestashopService.isCartPage())
+      ) {
         await this.renderPayLaterOfferMessage({
           placement: 'cart'
         });
       }
 
       // Pay Later Banner on Homepage
-      if (this.psCheckoutConfig.payLater.banner.home && this.prestashopService.isHomePage()) {
+      if (
+        this.psCheckoutConfig.payLater.banner.home &&
+        this.prestashopService.isHomePage()
+      ) {
         await this.renderPayLaterOfferBanner({
           placement: 'home'
         });
       }
 
       // Pay Later Banner on Category Page
-      if (this.psCheckoutConfig.payLater.banner.category && this.prestashopService.isCategoryPage()) {
+      if (
+        this.psCheckoutConfig.payLater.banner.category &&
+        this.prestashopService.isCategoryPage()
+      ) {
         await this.renderPayLaterOfferBanner({
           placement: 'category'
         });
       }
 
       // Pay Later Message on Cart & Order Page
-      if (this.psCheckoutConfig.payLater.banner.order && (this.prestashopService.isOrderPage() || this.prestashopService.isCartPage())) {
+      if (
+        this.psCheckoutConfig.payLater.banner.order &&
+        (this.prestashopService.isOrderPage() ||
+          this.prestashopService.isCartPage())
+      ) {
         await this.renderPayLaterOfferBanner({
           placement: 'cart'
         });
       }
 
       // Pay Later Message on Product Page
-      if (this.psCheckoutConfig.payLater.banner.product && this.prestashopService.isProductPage()) {
+      if (
+        this.psCheckoutConfig.payLater.banner.product &&
+        this.prestashopService.isProductPage()
+      ) {
         await this.renderPayLaterOfferBanner({
           placement: 'product'
+        });
+      }
+
+      // Funding source logo
+      if (
+        this.psCheckoutConfig.renderPaymentMethodLogos &&
+        this.prestashopService.isProductPage()
+      ) {
+        await this.renderPaymentMethodLogos({
+          placement: 'product'
+        });
+      }
+
+      if (
+        this.psCheckoutConfig.renderPaymentMethodLogos &&
+        this.prestashopService.isCartPage()
+      ) {
+        await this.renderPaymentMethodLogos({
+          placement: 'cart'
         });
       }
 

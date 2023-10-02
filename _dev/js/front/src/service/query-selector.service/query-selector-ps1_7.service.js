@@ -17,9 +17,14 @@
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
  */
 import { DefaultSelectors1_7 } from './default-selectors/default-selectors-ps1_7';
+import { DefaultSelectors1_7Hummingbird } from './default-selectors/default-selectors-ps1_7-hummingbird';
+
+const isThemeHummingbird = document.querySelector('body>main#wrapper') !== null;
+
+console.log('ISHUMMINGBIRD', isThemeHummingbird);
 
 const SELECTORS = {
-  ...DefaultSelectors1_7,
+  ...(isThemeHummingbird ? DefaultSelectors1_7Hummingbird : DefaultSelectors1_7),
   ...(window.ps_checkout.selectors || {})
 };
 

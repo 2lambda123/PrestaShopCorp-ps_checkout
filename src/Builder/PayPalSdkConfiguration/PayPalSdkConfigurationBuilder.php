@@ -111,7 +111,7 @@ class PayPalSdkConfigurationBuilder
         ];
 
         if ('SANDBOX' === $this->configuration->getPaymentMode()) {
-            $params['debug'] = 'true';
+//            $params['debug'] = 'true';
             $params['buyerCountry'] = $this->getCountry();
         }
 

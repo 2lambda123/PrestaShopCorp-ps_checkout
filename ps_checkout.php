@@ -921,9 +921,6 @@ class Ps_checkout extends PaymentModule
             return;
         }
 
-        /** @var \PrestaShop\Module\PrestashopCheckout\Builder\PayPalSdkLink\PayPalSdkLinkBuilder $payPalSdkLinkBuilder */
-        $payPalSdkLinkBuilder = $this->getService('ps_checkout.sdk.paypal.linkbuilder');
-
         /** @var \PrestaShop\Module\PrestashopCheckout\Builder\PaypalSdkConfiguration\PayPalSdkConfigurationBuilder $payPalSdkConfigurationBuilder */
         $payPalSdkConfigurationBuilder = $this->getService('ps_checkout.sdk.paypal.configurationbuilder');
 
@@ -1477,33 +1474,33 @@ class Ps_checkout extends PaymentModule
 
     public function hookDisplayHeader()
     {
-        $controller = Tools::getValue('controller');
-
-        if (empty($controller) && isset($this->context->controller->php_self)) {
-            $controller = $this->context->controller->php_self;
-        }
-
-        /** @var \PrestaShop\Module\PrestashopCheckout\Validator\FrontControllerValidator $frontControllerValidator */
-        $frontControllerValidator = $this->getService('ps_checkout.validator.front_controller');
-
-        if ($frontControllerValidator->shouldLoadFrontJS($controller)) {
-            // No need to prefetch if script will be loaded
-            return '';
-        }
-
-        /** @var \PrestaShop\Module\PrestashopCheckout\Builder\PayPalSdkLink\PayPalSdkLinkBuilder $payPalSdkLinkBuilder */
-        $payPalSdkLinkBuilder = $this->getService('ps_checkout.sdk.paypal.linkbuilder');
-
-        $this->context->smarty->assign([
-            'contentToPrefetch' => [
-                [
-                    'link' => $payPalSdkLinkBuilder->buildLink(),
-                    'type' => 'script',
-                ],
-            ],
-        ]);
-
-        return $this->display(__FILE__, 'views/templates/hook/header.tpl');
+//        $controller = Tools::getValue('controller');
+//
+//        if (empty($controller) && isset($this->context->controller->php_self)) {
+//            $controller = $this->context->controller->php_self;
+//        }
+//
+//        /** @var \PrestaShop\Module\PrestashopCheckout\Validator\FrontControllerValidator $frontControllerValidator */
+//        $frontControllerValidator = $this->getService('ps_checkout.validator.front_controller');
+//
+//        if ($frontControllerValidator->shouldLoadFrontJS($controller)) {
+//            // No need to prefetch if script will be loaded
+//            return '';
+//        }
+//
+//        /** @var \PrestaShop\Module\PrestashopCheckout\Builder\PayPalSdkLink\PayPalSdkLinkBuilder $payPalSdkLinkBuilder */
+//        $payPalSdkLinkBuilder = $this->getService('ps_checkout.sdk.paypal.linkbuilder');
+//
+//        $this->context->smarty->assign([
+//            'contentToPrefetch' => [
+//                [
+//                    'link' => $payPalSdkLinkBuilder->buildLink(),
+//                    'type' => 'script',
+//                ],
+//            ],
+//        ]);
+//
+//        return $this->display(__FILE__, 'views/templates/hook/header.tpl');
     }
 
     /**

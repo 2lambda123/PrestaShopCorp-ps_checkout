@@ -924,6 +924,9 @@ class Ps_checkout extends PaymentModule
         /** @var \PrestaShop\Module\PrestashopCheckout\Builder\PayPalSdkLink\PayPalSdkLinkBuilder $payPalSdkLinkBuilder */
         $payPalSdkLinkBuilder = $this->getService('ps_checkout.sdk.paypal.linkbuilder');
 
+        /** @var \PrestaShop\Module\PrestashopCheckout\Builder\PaypalSdkConfiguration\PayPalSdkConfigurationBuilder $payPalSdkConfigurationBuilder */
+        $payPalSdkConfigurationBuilder = $this->getService('ps_checkout.sdk.paypal.configurationbuilder');
+
         /** @var \PrestaShop\Module\PrestashopCheckout\ExpressCheckout\ExpressCheckoutConfiguration $expressCheckoutConfiguration */
         $expressCheckoutConfiguration = $this->getService('ps_checkout.express_checkout.configuration');
 
@@ -1005,7 +1008,7 @@ class Ps_checkout extends PaymentModule
             $this->name . 'ExpressCheckoutUrl' => $this->context->link->getModuleLink($this->name, 'ExpressCheckout', [], true),
             $this->name . 'CheckoutUrl' => $this->getCheckoutPageUrl(),
             $this->name . 'ConfirmUrl' => $this->context->link->getPageLink('order-confirmation', true, (int) $this->context->language->id),
-            $this->name . 'PayPalSdkUrl' => $payPalSdkLinkBuilder->buildLink(),
+            $this->name . 'PayPalSdkConfig' => $payPalSdkConfigurationBuilder->buildConfiguration(),
             $this->name . 'PayPalClientToken' => $payPalClientToken,
             $this->name . 'PayPalOrderId' => $payPalOrderId,
             $this->name . 'FundingSource' => $cartFundingSource,
@@ -1025,9 +1028,6 @@ class Ps_checkout extends PaymentModule
             $this->name . 'PayLaterProductPageButtonEnabled' => $payLaterConfiguration->isProductPageButtonActive() && $payPalConfiguration->isPayPalPaymentsReceivable(),
             $this->name . 'PayLaterCartPageButtonEnabled' => $payLaterConfiguration->isCartPageButtonActive() && $payPalConfiguration->isPayPalPaymentsReceivable(),
             $this->name . 'PayLaterOrderPageButtonEnabled' => $payLaterConfiguration->isOrderPageButtonActive() && $payPalConfiguration->isPayPalPaymentsReceivable(),
-            $this->name . '3dsEnabled' => $payPalConfiguration->is3dSecureEnabled(),
-            $this->name . 'CspNonce' => $payPalConfiguration->getCSPNonce(),
-            $this->name . 'PartnerAttributionId' => $shopContext->getBnCode(),
             $this->name . 'CartProductCount' => $cartProductCount,
             $this->name . 'FundingSourcesSorted' => $fundingSourcesSorted,
             $this->name . 'PayWithTranslations' => $payWithTranslations,

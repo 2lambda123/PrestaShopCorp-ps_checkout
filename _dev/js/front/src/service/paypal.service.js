@@ -329,6 +329,7 @@ export class PayPalService extends BaseClass {
       ...(this.configPayPal.payLaterOfferMessageCustomization || {}),
       ...(window.ps_checkout.payLaterOfferMessageCustomization || {})
     };
+    console.log('SDK',this.sdk);
     return (
       this.sdk.Messages &&
       this.sdk.Messages({

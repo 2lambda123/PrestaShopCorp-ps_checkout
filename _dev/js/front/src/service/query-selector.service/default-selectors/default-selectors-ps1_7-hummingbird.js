@@ -38,7 +38,7 @@ export const DefaultSelectors1_7Hummingbird = {
   EXPRESS_CHECKOUT_CONTAINER_CART_PAGE:
     '#cart .cart-summary .cart-detailed__actions',
   EXPRESS_CHECKOUT_CONTAINER_CHECKOUT_PAGE:
-    '#checkout-personal-information-step .content',
+    '#checkout-personal-information-step .step__content',
 
   PAY_LATER_OFFER_MESSAGE_CONTAINER_PRODUCT: '.product__prices',
   PAY_LATER_OFFER_MESSAGE_CONTAINER_CART_SUMMARY: '.cart-summary__totals',

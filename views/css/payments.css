@@ -352,7 +352,8 @@ label[for="ps_checkout-hosted-fields-card-cvv"] {
 }
 
 .js-payment-ps_checkout.disabled .ps_checkout-button[data-funding-source="card"] button:disabled {
-  opacity: initial;
+  /*TODO: This causes the button to be seen as not disabled on hummingbird. Do we keep it?*/
+  /*opacity: initial;*/
 }
 
 .ps_checkout.payment-method-logo-block {

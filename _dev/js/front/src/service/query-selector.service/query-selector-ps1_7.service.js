@@ -21,8 +21,6 @@ import { DefaultSelectors1_7Hummingbird } from './default-selectors/default-sele
 
 const isThemeHummingbird = document.querySelector('body>main#wrapper') !== null;
 
-console.log('ISHUMMINGBIRD', isThemeHummingbird);
-
 const SELECTORS = {
   ...(isThemeHummingbird ? DefaultSelectors1_7Hummingbird : DefaultSelectors1_7),
   ...(window.ps_checkout.selectors || {})

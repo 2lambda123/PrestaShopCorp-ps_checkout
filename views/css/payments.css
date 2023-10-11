@@ -31,6 +31,10 @@
 #checkout-personal-information-step #ps-checkout-express-button {
   display: flex;
   flex-flow: row wrap;
+
+  /*Fixes z-index problem on hummingbird*/
+  position: relative;
+  z-index: 1;
 }
 .product-add-to-cart #ps-checkout-express-button.disabled{
   display: none!important;

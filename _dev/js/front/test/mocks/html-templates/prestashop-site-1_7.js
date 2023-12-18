@@ -33,3 +33,9 @@ export function mockProductPage() {
     .getElementById('product-details')
     .setAttribute('data-product', JSON.stringify(PRODUCT_DATASET));
 }
+
+export function mockCheckoutVars() {
+  window.ps_checkoutPayPalOrderId = '';
+  window.ps_checkoutPayPalClientToken = '';
+  window.ps_checkoutPayPalSdkConfig = {};
+}

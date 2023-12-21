@@ -21,10 +21,12 @@ import { PayPalSdkComponent } from './paypal-sdk.component';
 import * as PrestashopSite1_7 from '../../../test/mocks/html-templates/prestashop-site-1_7';
 
 function buildDIContainerMock() {
+  PrestashopSite1_7.mockCheckoutVars();
+  const payPalSdkConfig = new PayPalSdkConfig();
   return {
     container: {
       PayPalSdkConfig: {
-        ...PayPalSdkConfig,
+        ...payPalSdkConfig,
         id: 'foo',
         src: 'url',
         namespace: 'fooNamespace'
@@ -132,7 +134,6 @@ describe('src/components/common/paypal-sdk.component.spec.js', () => {
   });
 
   test('::render() with new Sdk', () => {
-    PrestashopSite1_7.mockCheckoutVars();
     const diContainer = buildDIContainerMock();
     const payPalSdkComponent = new PayPalSdkComponent(diContainer);
 

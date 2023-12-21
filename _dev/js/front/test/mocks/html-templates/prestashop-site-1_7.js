@@ -37,5 +37,11 @@ export function mockProductPage() {
 export function mockCheckoutVars() {
   window.ps_checkoutPayPalOrderId = '';
   window.ps_checkoutPayPalClientToken = '';
-  window.ps_checkoutPayPalSdkConfig = {};
+  window.ps_checkoutPayPalSdkConfig = {
+    clientId: 'test',
+    currency: 'EUR',
+    intent: 'capture',
+    integrationDate: '2022-14-06',
+    components: 'marks,funding-eligibility,buttons'
+  };
 }

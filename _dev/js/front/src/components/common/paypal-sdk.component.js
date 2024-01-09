@@ -33,12 +33,11 @@ export class PayPalSdkComponent extends BaseComponent {
     this.promise = new Promise((resolve, reject) => {
       loadScript(this.config.sdkConfig)
         .then((paypal) => {
-          console.log('paypal sdk loaded');
           this.sdk = paypal;
           resolve(this.sdk);
         })
         .catch((error) => {
-          console.error('paypal sdk loading failed', error);
+          console.error('Unable to load the PayPal JavaScript SDK.', error);
           reject();
         });
     });

@@ -31,7 +31,6 @@ export class PayPalSdkComponent extends BaseComponent {
 
   render() {
     this.promise = new Promise((resolve, reject) => {
-      console.log('script loading');
       loadScript(this.config.sdkConfig)
         .then((paypal) => {
           console.log('paypal sdk loaded');
